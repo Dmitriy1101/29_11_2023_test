@@ -1,0 +1,30 @@
+{% extends "index.html" %}
+
+{% block body %}	
+
+    <div>
+        <h3> {{this_item.name}} </h3>
+        <p> {{this_item.description}} </p>
+        <span> Цена: {{this_item.price}} {{this_item.currency}}</span>
+        <button>
+            <a href="../../buy/{{this_item.id}}/">Купить</a>
+        </button>
+    </div>
+    <div>
+        <button>
+            <a href="../">Назад</a>
+        </button>
+    </div>
+    <div>
+        <form method="post" autocomplete="on">
+            {% csrf_token %}
+            {{ form }}
+            <button type="submit">В корзину</button>
+        </form>
+    </div>
+    {% if quantity %}
+        <h4>В корзине {{quantity}}шт. этого товара.</h4>
+    {% else %}
+        <h4>В корзине этого товара нет.</h4>
+    {% endif %}
+{% endblock %}

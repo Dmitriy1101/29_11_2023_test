@@ -1,0 +1,37 @@
+{% extends "index.html" %}
+
+{% block body %}	
+
+    <div>
+        {% for currency in currencys %}
+            <div>
+                <h3>Товар в валюте: {{currency}}</h3>
+                {% for item in order %}
+                    <div>
+                        {% if item.currency == currency %}
+                            <h3> {{item.name}} </h3>
+                            <p> {{item.description}} </p>
+                            <span> Цена: {{item.price}}</span>
+                            {% for it_id,it_q in basket.items %}
+                                {% if it_id|floatformat:"0" == item.id|floatformat:"0" %}
+                                    <span>В корзине: {{it_q}}</span>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+            <div>
+                <form>
+                    {% csrf_token %}
+                    <button name = "choise" value = {{currency}} formmethod = "post"> Купить {{currency}} </button>
+                </form>
+            </div>
+        {% endfor %}
+    </div>
+    <div>
+        <button>
+            <a href="../item/">Назад</a>
+        </button>
+    </div>
+{% endblock %}

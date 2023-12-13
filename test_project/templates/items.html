@@ -1,0 +1,32 @@
+{% extends "index.html" %}
+
+{% block body %}	
+
+    {% if it %}
+        <div>
+            <ul>
+                {% for item in it %}
+                <li>
+                    <h5><a href="/item/{{item.id}}"> {{item.name}} </a></h5>
+                    <p>{{item.description}}</p>
+                    <p class="price">Цена: {{item.price }} {{item.currency}}</p>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div>
+            {% if order %}
+                <button>
+                    <a href="../order">Купить</a>
+                </button>
+                <h4>В корзине {{order}}шт. товара.</h4>
+            {% else %}
+                <button>
+                    Карзина пуста.
+                </button>             
+            {% endif %}
+        </div>
+    {% else %}
+        <h3> Тут ничего </h3>
+    {% endif %}
+{% endblock %}
